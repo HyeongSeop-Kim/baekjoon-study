@@ -3,10 +3,7 @@
 [백준](https://www.acmicpc.net/) 에서 프로그래밍 문제를 풀면서 공부한 것을 정리한 파일
 
 ## 소수
-
-### 에라토스테네스의 체
-- 범위 안에서 소수를 판별하는 가장 빠른 방법.
-
+### 시행 나눗셈
 ```java
 public static boolean trialDivision(long n) {
     if (n < 2) return false;
@@ -17,6 +14,31 @@ public static boolean trialDivision(long n) {
         if (n % i == 0) return false;
     }
     return true;
+}
+```
+
+### 에라토스테네스의 체
+- 범위 안에서 소수를 판별하는 가장 빠른 방법.
+
+```java
+public static boolean[] sieveOfEratosthenes(int n) {
+    boolean[] isPrime = new boolean[n + 1];
+
+    // 초기화: 모두 소수로 가정
+    for (int i = 2; i <= n; i++) {
+        isPrime[i] = true;
+    }
+
+    for (int i = 2; i * i <= n; i++) {
+        if (isPrime[i]) {
+            // i의 배수들을 제거 (i는 남기고)
+            for (int j = i * i; j <= n; j += i) {
+                isPrime[j] = false;  // 배수 제거
+            }
+        }
+    }
+
+    return isPrime;
 }
 ```
 
